@@ -1,0 +1,2 @@
+module LesPirates {
+}
