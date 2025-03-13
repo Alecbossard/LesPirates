@@ -16,5 +16,4 @@ public class CartePopularite extends Cartes {
     public void appliquerEffet(Pirate lanceur, Pirate cible) {
         lanceur.ajouterPopularite(popularite);
     }
-
 }

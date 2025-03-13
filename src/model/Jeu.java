@@ -68,6 +68,12 @@ public class Jeu {
         }
         if (carteJouee instanceof CarteSpeciale && ((CarteSpeciale) carteJouee).getNom().equals("Rejouer")) {
             return true;  
+        }else if (carteJouee instanceof CarteNouvelMain) {
+        	piocher();
+        	piocher();
+        	piocher();
+        	piocher();
+            return true;
         }else {
         	return false;
         }

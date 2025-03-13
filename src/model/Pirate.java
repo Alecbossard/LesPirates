@@ -1,7 +1,7 @@
 package model;
 
 public class Pirate {
-    private static final int MAX_MAIN_SIZE = 5;  
+    static final int MAX_MAIN_SIZE = 5;  
     private static final int MAX_POPULARITE_CARDS = 5;  
     private String nom;
     private int popularite = 0;

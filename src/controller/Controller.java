@@ -63,7 +63,7 @@ public class Controller {
                         break;
                 }
             }
-
+            
 
             int choixCarte = vue.obtenirChoixCarte();
             while (choixCarte < 0 || choixCarte > joueurActuel.getTailleMain()) {

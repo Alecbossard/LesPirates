@@ -11,15 +11,20 @@ public class Affichage implements IAffichage {
     @Override
     public void afficherAccueil() {
         System.out.println("Bienvenue dans le jeu des Pirates !");
-        System.out.println("Deux pirates s'affrontent pour atteindre une popularite de 5 !");
+        System.out.println("Deux pirates s'affrontent dans une lutte sans merci.");
+        System.out.println("L'objectif ? Atteindre une popularité de 5 ou réduire la vie de l'adversaire à 0 !");
+        System.out.println("Chaque pirate commence avec 5 points de vie. Le premier à atteindre l'un de ces objectifs gagne !");
+        System.out.println("Que le meilleur pirate l'emporte !");
         System.out.println();
     }
 
     @Override
     public String[] obtenirNomsJoueurs() {
         String[] noms = new String[2];
-        noms[0] = "Pirate1";  
-        noms[1] = "Pirate2"; 
+        for (int i=0; i<2; i++) {
+        	System.out.println("Entrer le nom du Joueur " + (i +1) + " : ");
+        	noms[i]= scanner.nextLine().trim();
+        } 
         return noms;
     }
 
@@ -36,7 +41,7 @@ public class Affichage implements IAffichage {
     public void afficherEtatJeu(String[] etatJoueur1, String[] etatJoueur2, String[][] zonePopulariteJoueur1,
             String[][] zonePopulariteJoueur2, String[] zoneAttaque) {
        
-        System.out.println("etat actuel du jeu :");
+        System.out.println("Etat actuel du jeu :");
         System.out.println();
         System.out.println("Joueur 1 : " + etatJoueur1[0] + " | PV : " + etatJoueur1[1] + " | Popularite : " + etatJoueur1[2]);
         System.out.println("Joueur 2 : " + etatJoueur2[0] + " | PV : " + etatJoueur2[1] + " | Popularite : " + etatJoueur2[2]);

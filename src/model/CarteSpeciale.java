@@ -41,6 +41,6 @@ public class CarteSpeciale extends Cartes {
     }
 
     private void appliquerEffetRejouer(Pirate joueurActif) {
-        System.out.println(joueurActif.getNom() + " a joué la carte 'Rejouer' et peut maintenant rejouer son tour.");
+        System.out.println(joueurActif.getNom() + " a jouer la carte 'Rejouer' et peut maintenant rejouer son tour.");
     }
 }
