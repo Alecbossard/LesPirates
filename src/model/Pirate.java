@@ -1,15 +1,17 @@
 package model;
 
-import java.util.List;
-import java.util.ArrayList;
-
 public class Pirate {
+    private static final int MAX_MAIN_SIZE = 5;  
+    private static final int MAX_POPULARITE_CARDS = 5;  
     private String nom;
     private int popularite = 0;
     private int pointsDeVie = 5;
-    private List<Cartes> main = new ArrayList<>();
-    private List<Cartes> zonePopularite = new ArrayList<>();
-    private boolean peutJouer = true; 
+    private Cartes[] main = new Cartes[MAX_MAIN_SIZE];  
+    private Cartes[] zonePopularite = new Cartes[MAX_POPULARITE_CARDS];  
+    private int tailleMain = 0;  
+    private int tailleZonePopularite = 0;  
+
+    private boolean peutJouer = true;
 
     public Pirate(String nom) {
         this.nom = nom;
@@ -27,14 +29,20 @@ public class Pirate {
         return popularite;
     }
 
-    public List<Cartes> getMain() {
+    public Cartes[] getMain() {
         return main;
     }
+
     public int getTailleMain() {
-    	return main.size();
+        return tailleMain;
     }
-    public List<Cartes> getZonePopularite() {
+
+    public Cartes[] getZonePopularite() {
         return zonePopularite;
+    }
+
+    public int getTailleZonePopularite() {
+        return tailleZonePopularite;
     }
 
     public void ajouterPopularite(int points) {
@@ -49,7 +57,17 @@ public class Pirate {
     }
 
     public void ajouterCarteALaMain(Cartes carte) {
-        this.main.add(carte);
+        if (tailleMain < MAX_MAIN_SIZE) {
+            main[tailleMain] = carte;
+            tailleMain++;
+        }
+    }
+
+    public void ajouterCarteALaZonePopularite(Cartes carte) {
+        if (tailleZonePopularite < zonePopularite.length) {
+            zonePopularite[tailleZonePopularite] = carte;
+            tailleZonePopularite++;
+        }
     }
 
     public boolean aGagne() {
@@ -59,6 +77,7 @@ public class Pirate {
     public boolean estVivant() {
         return this.pointsDeVie > 0;
     }
+
     public boolean peutJouer() {
         return peutJouer;
     }
@@ -67,7 +86,7 @@ public class Pirate {
         this.peutJouer = peutJouer;
     }
 
-    public void setMain(List<Cartes> main) {
+    public void setMain(Cartes[] main) {
         this.main = main;
     }
 
@@ -78,19 +97,16 @@ public class Pirate {
             this.pointsDeVie = i;
         }
     }
-    public void piocherCarte(Pioche pioche) {
-        Cartes cartePiochée = pioche.piocherCarte(); 
-        if (cartePiochée != null) {
-            this.main.add(cartePiochée);  
+    public Cartes retirerCarteDeLaMain(int index) {
+        if (index >= 0 && index < tailleMain) {
+            Cartes carteRetiree = main[index];
+            for (int i = index; i < tailleMain - 1; i++) {
+                main[i] = main[i + 1];
+            }
+            main[tailleMain - 1] = null;
+            tailleMain--;
+            return carteRetiree;
         }
+        return null;  
     }
-    public void defausserCarte(Cartes carte) {
-        if (this.main.contains(carte)) {
-            this.main.remove(carte);  
-            System.out.println("La carte a été défaussée : " + carte.getNom());
-        } else {
-            System.out.println("La carte n'est pas dans la main du pirate.");
-        }
-    }
-    
 }

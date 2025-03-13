@@ -1,25 +1,27 @@
 package model;
 
-import java.util.Random;
-
 public class Jeu {
-    private Pirate joueur1;
-    private Pirate joueur2;
+    private Pirate pirate1;
+    private Pirate pirate2;
     private Pioche pioche = new Pioche();
-    private Pirate joueurActuel;
+    private Pirate pirateActuel;
     private Pirate adversaire;
     private Cartes zoneAttaque;
 
-    public Pirate getJoueur1() {
-        return joueur1;
+    public Pirate getPirate1() {
+        return pirate1;
     }
 
-    public Pirate getJoueur2() {
-        return joueur2;
+    public Pirate getPirate2() {
+        return pirate2;
     }
 
-    public Pirate getJoueurActuel() {
-        return joueurActuel;
+    public Pioche getPioche() {
+        return pioche;
+    }
+
+    public Pirate getPirateActuel() {
+        return pirateActuel;
     }
 
     public Pirate getAdversaire() {
@@ -30,102 +32,69 @@ public class Jeu {
         return zoneAttaque;
     }
 
-    public void initialiserJoueurs(String nomJoueur1, String nomJoueur2) {
-        joueur1 = new Pirate(nomJoueur1);
-        joueur2 = new Pirate(nomJoueur2);
-        initialiserMains();
-        joueurActuel = joueur1;
-        adversaire = joueur2;
+    public void initialiserJoueurs(String nomPirate1, String nomPirate2) {
+        pirate1 = new Pirate(nomPirate1);
+        pirate2 = new Pirate(nomPirate2);
+        initialiserMain();
+        pirateActuel = pirate1;
+        adversaire = pirate2;
     }
 
-    private void initialiserMains() {
+    private void initialiserMain() {
         for (int i = 0; i < 4; i++) {
-            joueur1.ajouterCarteALaMain(pioche.piocherCarte());
-            joueur2.ajouterCarteALaMain(pioche.piocherCarte());
+            pirate1.ajouterCarteALaMain(pioche.piocherCarte());
+            pirate2.ajouterCarteALaMain(pioche.piocherCarte());
         }
     }
 
     public Cartes piocher() {
         Cartes nouvelleCarte = pioche.piocherCarte();
-        joueurActuel.ajouterCarteALaMain(nouvelleCarte);
+        pirateActuel.ajouterCarteALaMain(nouvelleCarte);
         return nouvelleCarte;
     }
 
     public boolean jouerCarte(int index) {
-        Cartes carteJouee = joueurActuel.getMain().get(index);
-        carteJouee.appliquerEffet(joueurActuel, adversaire);
-        joueurActuel.getMain().remove(index);
+        Cartes carteJouee = pirateActuel.retirerCarteDeLaMain(index);
+        carteJouee.appliquerEffet(pirateActuel, adversaire);
+        
 
-        if (carteJouee instanceof CartePopularite) {
-            joueurActuel.getZonePopularite().add(carteJouee);
-            zoneAttaque = null;
-        } else if (carteJouee instanceof CarteAttaque) {
+        if (carteJouee.getType() == CarteType.POPULARITE) {
+            pirateActuel.ajouterCarteALaZonePopularite(carteJouee);
+        } else if (carteJouee.getType() == CarteType.ATTAQUE) {
             zoneAttaque = carteJouee;
-        } else if (carteJouee instanceof CarteSpeciale) {
-            CarteSpeciale carteSpeciale = (CarteSpeciale) carteJouee;
-            switch (carteSpeciale.getEffetSpecial()) {
-                case "rejouer":
-                    return true; 
-                case "soins":
-                    appliquerSoins(joueurActuel); 
-                    break;
-                default:
-                    break;
-            }
         }
-        return false;
-    }
-
-    private void appliquerSoins(Pirate joueurActif) {
-        int pointsDeVie = joueurActif.getPointsDeVie();
-        if (pointsDeVie < 5) {
-            joueurActif.setPointsDeVie(Math.min(5, pointsDeVie + 2)); 
+        if (carteJouee.getType() != CarteType.ATTAQUE) {
+            zoneAttaque = null;
+        }
+        if (carteJouee instanceof CarteSpeciale && ((CarteSpeciale) carteJouee).getNom().equals("Rejouer")) {
+            return true;  
+        }else {
+        	return false;
         }
     }
 
-
-
-    public void changerDeJoueur() {
-        if (joueurActuel == joueur1) {
-            joueurActuel = joueur2;
-            adversaire = joueur1;
-        } else {
-            joueurActuel = joueur1;
-            adversaire = joueur2;
-        }
+    public void changerDeJoueur(){
+        Pirate tmp = pirateActuel;
+        pirateActuel = adversaire;
+        adversaire = tmp;
     }
 
     public boolean estTerminee() {
-        return joueur1.getPopularite() >= 5 || joueur2.getPopularite() >= 5 || joueur1.getPointsDeVie() <= 0
-                || joueur2.getPointsDeVie() <= 0;
+        return pirate1.getPopularite() >= 5 || pirate2.getPopularite() >= 5 || pirate1.getPointsDeVie() <= 0
+                || pirate2.getPointsDeVie() <= 0;
     }
 
     public Pirate getGagnant() {
-        if (joueur1.getPopularite() >= 5) {
-            return joueur1;
-        } else if (joueur2.getPopularite() >= 5) {
-            return joueur2;
+        if (pirate1.getPopularite() >= 5) {
+            return pirate1;
+        } else if (pirate2.getPopularite() >= 5) {
+            return pirate2;
         }
-        if (joueur1.getPointsDeVie() <= 0) {
-            return joueur2;
-        } else if (joueur2.getPointsDeVie() <= 0) {
-            return joueur1;
+        if (pirate1.getPointsDeVie() <= 0) {
+            return pirate2;
+        } else if (pirate2.getPointsDeVie() <= 0) {
+            return pirate1;
         }
         return null;
     }
-
-
-    public Pirate getJoueurCible() {
-        return adversaire; 
-    }
-    public Cartes piocherCarte() {
-        if (!pioche.isEmpty()) {
-            return pioche.piocherCarte();
-        }
-        return null;  
-    }
-
-	public Pioche getPioche() {
-		return pioche;
-	}
 }

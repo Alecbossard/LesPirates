@@ -28,11 +28,11 @@ public class Controller {
                 zoneAttaqueDTO = creerCarteDTO(modele.getZoneAttaque());
             }
 
-            vue.afficherEtatJeu(creerEtatJoueurDTO(modele.getJoueur1()), creerEtatJoueurDTO(modele.getJoueur2()),
-                    creerCartesDTO(modele.getJoueur1().getZonePopularite()),
-                    creerCartesDTO(modele.getJoueur2().getZonePopularite()), zoneAttaqueDTO);
+            vue.afficherEtatJeu(creerEtatJoueurDTO(modele.getPirate1()), creerEtatJoueurDTO(modele.getPirate2()),
+                    creerCartesDTO(modele.getPirate1().getZonePopularite()),
+                    creerCartesDTO(modele.getPirate2().getZonePopularite()), zoneAttaqueDTO);
 
-            Pirate joueurActuel = modele.getJoueurActuel();
+            Pirate joueurActuel = modele.getPirateActuel();
             vue.afficherTourActuel(joueurActuel.getNom());
             Cartes cartePiochee = modele.piocher();
             String[] cartePiocheeDTO = creerCarteDTO(cartePiochee);
@@ -46,8 +46,8 @@ public class Controller {
                 case SPECIAL:
                     vue.afficherCartePiocheeSpecial(cartePiocheeDTO);
             }
-            for (int i = 0; i < modele.getJoueurActuel().getMain().size(); i++) {
-                Cartes carteMain = modele.getJoueurActuel().getMain().get(i);
+            for (int i = 0; i < joueurActuel.getTailleMain(); i++) {  
+                Cartes carteMain = joueurActuel.getMain()[i];  
                 String[] carteMainDTO = creerCarteDTO(carteMain);
                 switch (carteMain.getType()) {
                     case POPULARITE:
@@ -84,15 +84,19 @@ public class Controller {
         vue.afficherVainqueur(gagnant.getNom());
     }
 
-    private String[][] creerCartesDTO(List<Cartes> cartes) {
-        String[][] cartesDTO = new String[cartes.size()][4]; 
-        for (int i = 0; i < cartes.size(); i++) {
-            cartesDTO[i] = creerCarteDTO(cartes.get(i)); 
+    private String[][] creerCartesDTO(Cartes[] cartes) {  
+        String[][] cartesDTO = new String[cartes.length][4];  
+        for (int i = 0; i < cartes.length; i++) {
+            cartesDTO[i] = creerCarteDTO(cartes[i]);
         }
         return cartesDTO;
     }
 
     private String[] creerCarteDTO(Cartes carte) {
+        if (carte == null) {
+            return new String[] { "Carte invalide", "Cette carte n'est pas valide", "", "" };
+        }
+
         String[] carteDTO = new String[4];
         carteDTO[0] = carte.getNom();
         carteDTO[1] = carte.getDescription();
@@ -100,21 +104,18 @@ public class Controller {
         if (carte.getType() == CarteType.POPULARITE) {
             CartePopularite cartePopularite = (CartePopularite) carte;
             carteDTO[2] = String.valueOf(cartePopularite.getPopularite());
-        }
-     
-        else if (carte.getType() == CarteType.ATTAQUE) {
+        } else if (carte.getType() == CarteType.ATTAQUE) {
             CarteAttaque carteAttaque = (CarteAttaque) carte;
             carteDTO[2] = String.valueOf(carteAttaque.getDegats());
-            carteDTO[3] = "";  
+            carteDTO[3] = "";
+        } else if (carte.getType() == CarteType.SPECIAL) {
+            carteDTO[2] = carte.getDescription();
+            carteDTO[3] = "Effet spécial activé";
         }
-       
-        else if (carte.getType() == CarteType.SPECIAL) {
-            carteDTO[2] = carte.getDescription(); 
-            carteDTO[3] = "Effet spécial activé"; 
-        }
-        
+
         return carteDTO;
     }
+
     private String[] creerEtatJoueurDTO(Pirate joueur) {
         String[] etatDTO = new String[3];
         etatDTO[0] = joueur.getNom();
