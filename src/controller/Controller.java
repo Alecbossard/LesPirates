@@ -1,14 +1,9 @@
 package controller;
 
 import java.util.List;
-import model.Pirate;
-import model.Cartes;
-import model.CarteAttaque;
-import model.CartePopularite;
-import model.CarteEchangeMain;
-import model.CarteType;
-import model.Jeu;
+import model.*;
 import view.IAffichage;
+
 
 public class Controller {
     private final IAffichage vue;
@@ -39,49 +34,50 @@ public class Controller {
 
             Pirate joueurActuel = modele.getJoueurActuel();
             vue.afficherTourActuel(joueurActuel.getNom());
-
             Cartes cartePiochee = modele.piocher();
             String[] cartePiocheeDTO = creerCarteDTO(cartePiochee);
             switch (cartePiochee.getType()) {
-            case POPULARITE:
-                vue.afficherCartePiocheePopularite(cartePiocheeDTO);
-                break;
-            case ATTAQUE:
-                vue.afficherCartePiocheeAttaque(cartePiocheeDTO);
-                break;
-            case SPECIAL:
-                vue.afficherCartePiocheeSpecial(cartePiocheeDTO);
-                break;
-            default:
-                break;
+                case POPULARITE:
+                    vue.afficherCartePiocheePopularite(cartePiocheeDTO);
+                    break;
+                case ATTAQUE:
+                    vue.afficherCartePiocheeAttaque(cartePiocheeDTO);
+                    break;
+                case SPECIAL:
+                    vue.afficherCartePiocheeSpecial(cartePiocheeDTO);
             }
-            
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < modele.getJoueurActuel().getMain().size(); i++) {
                 Cartes carteMain = modele.getJoueurActuel().getMain().get(i);
                 String[] carteMainDTO = creerCarteDTO(carteMain);
                 switch (carteMain.getType()) {
-                case POPULARITE:
-                    vue.afficherCarteMainPopularite(carteMainDTO, i + 1);
-                    break;
-                case ATTAQUE:
-                    vue.afficherCarteMainAttaque(carteMainDTO, i + 1);
-                    break;
-                case SPECIAL:
-                    vue.afficherCarteMainSpecial(carteMainDTO, i + 1); 
-                    break;
-                default:
-                    break;
+                    case POPULARITE:
+                        vue.afficherCarteMainPopularite(carteMainDTO, i + 1);
+                        break;
+                    case ATTAQUE:
+                        vue.afficherCarteMainAttaque(carteMainDTO, i + 1);
+                        break;
+                    case SPECIAL:
+                        vue.afficherCarteMainSpecial(carteMainDTO, i + 1);
+                        break;
+                    default:
+                        break;
                 }
             }
 
+
             int choixCarte = vue.obtenirChoixCarte();
-            while (choixCarte < 0 || choixCarte > 5) {
+            while (choixCarte < 0 || choixCarte > joueurActuel.getTailleMain()) {
                 vue.afficherErreurChoix();
                 choixCarte = vue.obtenirChoixCarte();
             }
-
-            modele.jouerCarte(choixCarte - 1);
-            modele.changerDeJoueur();
+            
+            
+            
+            boolean doitRejouer = modele.jouerCarte(choixCarte - 1);
+            if (!doitRejouer) {
+                modele.changerDeJoueur();
+            }
+            
         }
 
         Pirate gagnant = modele.getGagnant();
@@ -97,31 +93,28 @@ public class Controller {
     }
 
     private String[] creerCarteDTO(Cartes carte) {
-        String[] carteDTO = new String[4];	
+        String[] carteDTO = new String[4];
         carteDTO[0] = carte.getNom();
         carteDTO[1] = carte.getDescription();
-        
 
         if (carte.getType() == CarteType.POPULARITE) {
             CartePopularite cartePopularite = (CartePopularite) carte;
-            carteDTO[2] = String.valueOf(cartePopularite.getCoutHp());
-            carteDTO[3] = String.valueOf(cartePopularite.getPopularite());
+            carteDTO[2] = String.valueOf(cartePopularite.getPopularite());
         }
- 
+     
         else if (carte.getType() == CarteType.ATTAQUE) {
             CarteAttaque carteAttaque = (CarteAttaque) carte;
             carteDTO[2] = String.valueOf(carteAttaque.getDegats());
             carteDTO[3] = "";  
         }
-   
+       
         else if (carte.getType() == CarteType.SPECIAL) {
-            carteDTO[2] = "";  
-            carteDTO[3] = ""; 
+            carteDTO[2] = carte.getDescription(); 
+            carteDTO[3] = "Effet spécial activé"; 
         }
         
         return carteDTO;
     }
-
     private String[] creerEtatJoueurDTO(Pirate joueur) {
         String[] etatDTO = new String[3];
         etatDTO[0] = joueur.getNom();

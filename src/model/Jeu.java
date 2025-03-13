@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Jeu {
     private Pirate joueur1;
     private Pirate joueur2;
@@ -49,31 +51,54 @@ public class Jeu {
         return nouvelleCarte;
     }
 
-    public void jouerCarte(int index) {
+    public boolean jouerCarte(int index) {
         Cartes carteJouee = joueurActuel.getMain().get(index);
-        carteJouee.appliquerEffet(adversaire, joueurActuel);
+        carteJouee.appliquerEffet(joueurActuel, adversaire);
         joueurActuel.getMain().remove(index);
 
         if (carteJouee instanceof CartePopularite) {
             joueurActuel.getZonePopularite().add(carteJouee);
             zoneAttaque = null;
-        } 
-        else if (carteJouee instanceof CarteAttaque) {
+        } else if (carteJouee instanceof CarteAttaque) {
             zoneAttaque = carteJouee;
+        } else if (carteJouee instanceof CarteSpeciale) {
+            CarteSpeciale carteSpeciale = (CarteSpeciale) carteJouee;
+            switch (carteSpeciale.getEffetSpecial()) {
+                case "rejouer":
+                    return true; 
+                case "soins":
+                    appliquerSoins(joueurActuel); 
+                    break;
+                default:
+                    break;
+            }
+        }
+        return false;
+    }
+
+    private void appliquerSoins(Pirate joueurActif) {
+        int pointsDeVie = joueurActif.getPointsDeVie();
+        if (pointsDeVie < 5) {
+            joueurActif.setPointsDeVie(Math.min(5, pointsDeVie + 2)); 
         }
     }
 
+
+
     public void changerDeJoueur() {
-        Pirate temp = joueurActuel;
-        joueurActuel = adversaire;
-        adversaire = temp;
+        if (joueurActuel == joueur1) {
+            joueurActuel = joueur2;
+            adversaire = joueur1;
+        } else {
+            joueurActuel = joueur1;
+            adversaire = joueur2;
+        }
     }
 
     public boolean estTerminee() {
         return joueur1.getPopularite() >= 5 || joueur2.getPopularite() >= 5 || joueur1.getPointsDeVie() <= 0
                 || joueur2.getPointsDeVie() <= 0;
     }
-
 
     public Pirate getGagnant() {
         if (joueur1.getPopularite() >= 5) {
@@ -88,4 +113,19 @@ public class Jeu {
         }
         return null;
     }
+
+
+    public Pirate getJoueurCible() {
+        return adversaire; 
+    }
+    public Cartes piocherCarte() {
+        if (!pioche.isEmpty()) {
+            return pioche.piocherCarte();
+        }
+        return null;  
+    }
+
+	public Pioche getPioche() {
+		return pioche;
+	}
 }

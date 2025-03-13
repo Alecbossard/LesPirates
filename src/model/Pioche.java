@@ -15,26 +15,23 @@ public class Pioche {
         initialiserPioche();
     }
 
-
     private void initialiserPioche() {
-        cartes.add(new CartePopularite("Discours Inspirant", "Gagne en popularité, ne coûte pas de hp.", 1, 0));
-        cartes.add(new CartePopularite("Révolte Organisée", "Gagne en popularité, ne coûte pas de hp.", 1, 0));
-        cartes.add(new CartePopularite("Abordage Réussi", "Gagne beaucoup de popularité.", 2, 0));
-        cartes.add(new CartePopularite("Poing de Fer", "Gagne en popularité mais coûte un peu de hp.", 2, 1));
-        cartes.add(new CartePopularite("Repère outil", "Le pirate repère son adversaire sans se faire repérer.", 2, 0));
-        cartes.add(new CartePopularite("Repère outil", "Le pirate repère son adversaire sans se faire repérer.", 2, 0));
-        for (int i = 0; i < 3; i++) {
-            cartes.add(new CartePopularite("Discours Inspirant", "Gagne en popularité, ne coûte pas de hp.", 1, 0));
-            cartes.add(new CartePopularite("Révolte Organisée", "Gagne en popularité, ne coûte pas de hp.", 1, 0));
-            cartes.add(new CartePopularite("Abordage Réussi", "Gagne beaucoup de popularité.", 2, 0));
-            cartes.add(new CartePopularite("Poing de Fer", "Gagne en popularité mais coûte un peu de hp.", 2, 1));
-        }
+        cartes.add(new CartePopularite("Discours Inspirant", "Gagne en popularitÃ©.", 1));
+        cartes.add(new CartePopularite("RÃ©volte OrganisÃ©e", "Gagne en popularitÃ©.", 1));
+        cartes.add(new CartePopularite("Abordage RÃ©ussi", "Gagne beaucoup de popularitÃ©.", 2));
+        cartes.add(new CartePopularite("Poing de Fer", "Gagne en popularitÃ©.", 2));
 
-        cartes.add(new CarteAttaque("Frappe de Sabre", "Inflige des dégâts à l'adversaire.", 2));
-        cartes.add(new CarteAttaque("Explosion de Canon", "Inflige de lourds dégâts à l'adversaire.", 3));
-        for (int i = 0; i < 2; i++) {
-            cartes.add(new CarteAttaque("Frappe de Sabre", "Inflige des dégâts à l'adversaire.", 2));
-            cartes.add(new CarteAttaque("Explosion de Canon", "Inflige de lourds dégâts à l'adversaire.", 3));
+        cartes.add(new CarteAttaque("Frappe de Sabre", "Inflige des dÃ©gÃ¢ts Ã  l'adversaire.", 2));
+        cartes.add(new CarteAttaque("Explosion de Canon", "Inflige de lourds dÃ©gÃ¢ts Ã  l'adversaire.", 3));
+
+        cartes.add(new CarteSpeciale("Rejouer", "Permet de rejouer immÃ©diatement aprÃ¨s avoir jouÃ© cette carte.", "rejouer"));
+        cartes.add(new CarteSpeciale("Soins", "Soigne le joueur, rÃ©gÃ©nÃ¨re des points de vie.", "soins"));
+
+        for (int i = 0; i < 4; i++) {
+            cartes.add(new CartePopularite("Discours Inspirant", "Gagne en popularitÃ©.", 1));
+            cartes.add(new CartePopularite("RÃ©volte OrganisÃ©e", "Gagne en popularitÃ©.", 1));
+            cartes.add(new CarteAttaque("Frappe de Sabre", "Inflige des dÃ©gÃ¢ts Ã  l'adversaire.", 2));
+            cartes.add(new CarteAttaque("Explosion de Canon", "Inflige de lourds dÃ©gÃ¢ts Ã  l'adversaire.", 3));
         }
 
         Collections.shuffle(cartes, random);
@@ -42,7 +39,7 @@ public class Pioche {
 
     public Cartes piocherCarte() {
         if (!cartes.isEmpty()) {
-            return cartes.remove(0); 
+            return cartes.remove(0);
         }
         return null;  
     }
@@ -50,4 +47,14 @@ public class Pioche {
     public int nombreDeCartesRestantes() {
         return cartes.size();
     }
+
+    public boolean isEmpty() {
+        return cartes.isEmpty();  
+    }
+
+	public Cartes remove(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
 }

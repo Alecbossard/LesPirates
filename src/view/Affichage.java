@@ -11,7 +11,8 @@ public class Affichage implements IAffichage {
     @Override
     public void afficherAccueil() {
         System.out.println("Bienvenue dans le jeu des Pirates !");
-        System.out.println("Deux pirates s'affrontent pour atteindre une popularité de 5 !");
+        System.out.println("Deux pirates s'affrontent pour atteindre une popularite de 5 !");
+        System.out.println();
     }
 
     @Override
@@ -25,53 +26,44 @@ public class Affichage implements IAffichage {
     @Override
     public void afficherDebutJeu(String[] nomsJoueurs) {
         System.out.println("Le jeu commence !");
+        System.out.println();
         System.out.println("Joueur 1 : " + nomsJoueurs[0]);
         System.out.println("Joueur 2 : " + nomsJoueurs[1]);
+        System.out.println();
     }
 
     @Override
     public void afficherEtatJeu(String[] etatJoueur1, String[] etatJoueur2, String[][] zonePopulariteJoueur1,
             String[][] zonePopulariteJoueur2, String[] zoneAttaque) {
        
-        System.out.println("État actuel du jeu :");
-        System.out.println("Joueur 1 : " + etatJoueur1[0] + " PV, Popularité : " + etatJoueur1[1]);
-        System.out.println("Joueur 2 : " + etatJoueur2[0] + " PV, Popularité : " + etatJoueur2[1]);
-
-       
-        System.out.println("Cartes de popularité de Joueur 1 : ");
-        for (String[] carte : zonePopulariteJoueur1) {
-            System.out.println(carte[0]);
-        }
-
-        System.out.println("Cartes de popularité de Joueur 2 : ");
-        for (String[] carte : zonePopulariteJoueur2) {
-            System.out.println(carte[0]);
-        }
-
-        System.out.println("Cartes d'attaque : ");
-        for (String carte : zoneAttaque) {
-            System.out.println(carte);
-        }
+        System.out.println("etat actuel du jeu :");
+        System.out.println();
+        System.out.println("Joueur 1 : " + etatJoueur1[0] + " | PV : " + etatJoueur1[1] + " | Popularite : " + etatJoueur1[2]);
+        System.out.println("Joueur 2 : " + etatJoueur2[0] + " | PV : " + etatJoueur2[1] + " | Popularite : " + etatJoueur2[2]);
+        System.out.println();
     }
 
     @Override
     public void afficherTourActuel(String nomJoueur) {
         System.out.println("C'est le tour de " + nomJoueur);
+        System.out.println();
     }
 
     @Override
     public void afficherCartePiocheePopularite(String[] carte) {
-        System.out.println("Carte de popularité piochée : " + carte[0]);
+        System.out.println("Carte de popularite piochee : " + carte[0]);
+        System.out.println();
     }
 
     @Override
     public void afficherCartePiocheeAttaque(String[] carte) {
-        System.out.println("Carte d'attaque piochée : " + carte[0]);
+        System.out.println("Carte d'attaque piochee : " + carte[0]);
+        System.out.println();
     }
 
     @Override
     public void afficherCarteMainPopularite(String[] carte, int index) {
-        System.out.println("Carte de popularité dans la main (index " + index + ") : " + carte[0]);
+        System.out.println("Carte de popularite dans la main (index " + index + ") : " + carte[0]);
     }
 
     @Override
@@ -82,6 +74,7 @@ public class Affichage implements IAffichage {
     @Override
     public int obtenirChoixCarte() {
         System.out.printf("%nChoisissez une carte (1-5) : ");
+        System.out.println();
         try {
             return Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
@@ -91,7 +84,7 @@ public class Affichage implements IAffichage {
 
     @Override
     public void afficherErreurChoix() {
-        System.out.println("Choix invalide. Veuillez essayer à nouveau.");
+        System.out.println("Choix invalide. Veuillez essayer a nouveau.");
     }
 
     @Override
@@ -100,15 +93,14 @@ public class Affichage implements IAffichage {
     }
     @Override
     public void afficherCartePiocheeSpecial(String[] carteDTO) {
-        System.out.println("Carte Spéciale Piochée : " + carteDTO[0]);
+        System.out.println("Carte Speciale Piochee : " + carteDTO[0]);
         System.out.println("Description : " + carteDTO[1]);
-        System.out.println("Effet : Cette carte permet d'échanger les mains des joueurs !");
+        System.out.println();
     }
-    
+
     @Override
     public void afficherCarteMainSpecial(String[] carteDTO, int index) {
-        System.out.println("Carte Spéciale dans la main (Index " + index + ") : " + carteDTO[0]);
+        System.out.println("Carte Speciale dans la main (Index " + index + ") : " + carteDTO[0]);
         System.out.println("Description : " + carteDTO[1]);
-        System.out.println("Effet : Cette carte permet d'échanger les mains des joueurs !");
     }
 }
