@@ -19,38 +19,38 @@ public class Pioche {
         cartes = new Cartes[40];
         int idx = 0;
 
-        cartes[idx++] = new CartePopularite("Discours Inspirant", "Gagne en popularité.", 1);
+        cartes[idx++] = new CartePopularite("Discours Inspirant", "Gagne en popularitï¿½.", 1);
         cartes[idx++] = new CartePopularite("Eclipse", 
-                "Vous utilisez le bateau Eclipse et naviguez sur des eaux calmes, gagnez 3 de popularité.", 3);
+                "Vous utilisez le bateau Eclipse et naviguez sur des eaux calmes, gagnez 3 de popularitï¿½.", 3);
         for (int i = 0; i < 10; i++) {
-            cartes[idx++] = new CartePopularite("Repère Outils", 
-                    "Vous repérez votre adversaire sans vous faire repérer, et gagnez 1 de popularité.", 1);
+            cartes[idx++] = new CartePopularite("Repï¿½re Outils", 
+                    "Vous repï¿½rez votre adversaire sans vous faire repï¿½rer, et gagnez 1 de popularitï¿½.", 1);
         }
 
         cartes[idx++] = new CarteAttaquePopu("Coup de Yaskawa", 
-                "Inflige des dégâts à l'adversaire égaux à la popularité du joueur.");
+                "Inflige des dï¿½gï¿½ts ï¿½ l'adversaire ï¿½gaux ï¿½ la popularitï¿½ du joueur.");
         cartes[idx++] = new CarteAttaquePopu("Coup de Yaskawa", 
-                "Inflige des dégâts à l'adversaire égaux à la popularité du joueur.");
+                "Inflige des dï¿½gï¿½ts ï¿½ l'adversaire ï¿½gaux ï¿½ la popularitï¿½ du joueur.");
         cartes[idx++] = new CarteAttaquePopu("Coup de Yaskawa", 
-                "Inflige des dégâts à l'adversaire égaux à la popularité du joueur.");
+                "Inflige des dï¿½gï¿½ts ï¿½ l'adversaire ï¿½gaux ï¿½ la popularitï¿½ du joueur.");
         cartes[idx++] = new CarteAttaquePopu("Coup de Yaskawa", 
-                "Inflige des dégâts à l'adversaire égaux à la popularité du joueur.");
+                "Inflige des dï¿½gï¿½ts ï¿½ l'adversaire ï¿½gaux ï¿½ la popularitï¿½ du joueur.");
         cartes[idx++] = new CarteAttaquePopu("Coup de Yaskawa", 
-                "Inflige des dégâts à l'adversaire égaux à la popularité du joueur.");
+                "Inflige des dï¿½gï¿½ts ï¿½ l'adversaire ï¿½gaux ï¿½ la popularitï¿½ du joueur.");
         for (int i = 0; i < 7; i++) {
             cartes[idx++] = new CarteAttaque("Coup de Kuka", 
-                    "Inflige 1 dégât à l'adversaire avec son bras robotique obsolète.", 1);
+                    "Inflige 1 dï¿½gï¿½t ï¿½ l'adversaire avec son bras robotique obsolï¿½te.", 1);
             cartes[idx++] = new CarteAttaque("Coup de Staubli", 
-                    "Inflige 2 dégâts à l'adversaire grâce à son bras robotique de nouvelle technologie.", 2);
+                    "Inflige 2 dï¿½gï¿½ts ï¿½ l'adversaire grï¿½ce ï¿½ son bras robotique de nouvelle technologie.", 2);
         }
 
         for (int i = 0; i < 3; i++) {
-            cartes[idx++] = new CarteSpeciale("Rejouer", 
+            cartes[idx++] = new CarteRejouer("Rejouer", 
                     "Cycle ton deck ( comme le 2.6 ) ", "rejouer");
-            cartes[idx++] = new CarteSpeciale("Soins", 
-                    "Soigne le joueur, régénère des points de vie.", "soins");
+            cartes[idx++] = new CarteSoins("Soins", 
+                    "Soigne le joueur, rï¿½gï¿½nï¿½re des points de vie.", "soins");
         }
-        cartes[idx++] = new CarteEchangeMain("Échange de main", "Échange les mains des deux pirates.");
+        cartes[idx++] = new CarteEchangeMain("ï¿½change de main", "ï¿½change les mains des deux pirates.");
         cartes[idx++] = new CarteNouvelMain("Random.Shuffle", "Pioche 5 nouvelles cartes.");
         cartes[idx++] = new CarteNouvelMain("Random.Shuffle", "Pioche 5 nouvelles cartes.");
 

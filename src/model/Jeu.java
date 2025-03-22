@@ -66,7 +66,7 @@ public class Jeu {
         if (carteJouee.getType() != CarteType.ATTAQUE) {
             zoneAttaque = null;
         }
-        if (carteJouee instanceof CarteSpeciale && ((CarteSpeciale) carteJouee).getNom().equals("Rejouer")) {
+        if (carteJouee instanceof CarteRejouer && ((CarteRejouer) carteJouee).getNom().equals("Rejouer")) {
             return true;  
         }else if (carteJouee instanceof CarteNouvelMain) {
         	piocher();
