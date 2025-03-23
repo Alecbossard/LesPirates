@@ -2,8 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-import model.Cartes;
-import model.Pirate;
+
 
 public class Affichage implements IAffichage {
     private final Scanner scanner = new Scanner(System.in);
@@ -12,8 +11,8 @@ public class Affichage implements IAffichage {
     public void afficherAccueil() {
         System.out.println("Bienvenue dans le jeu des Pirates !");
         System.out.println("Deux pirates s'affrontent dans une lutte sans merci.");
-        System.out.println("L'objectif ? Atteindre une popularité de 5 ou réduire la vie de l'adversaire à 0 !");
-        System.out.println("Chaque pirate commence avec 5 points de vie. Le premier à atteindre l'un de ces objectifs gagne !");
+        System.out.println("L'objectif ? Atteindre une popularite de 5 ou reduire la vie de l'adversaire a 0 !");
+        System.out.println("Chaque pirate commence avec 5 points de vie. Le premier a atteindre l'un de ces objectifs gagne !");
         System.out.println("Que le meilleur pirate l'emporte !");
         System.out.println();
     }
@@ -22,8 +21,8 @@ public class Affichage implements IAffichage {
     public String[] obtenirNomsJoueurs() {
         String[] noms = new String[2];
         for (int i=0; i<2; i++) {
-        	System.out.println("Entrer le nom du Joueur " + (i +1) + " : ");
-        	noms[i]= scanner.nextLine().trim();
+            System.out.println("Entrer le nom du Joueur " + (i +1) + " : ");
+            noms[i]= scanner.nextLine().trim();
         } 
         return noms;
     }
@@ -96,6 +95,7 @@ public class Affichage implements IAffichage {
     public void afficherVainqueur(String nom) {
         System.out.println("Le gagnant est : " + nom);
     }
+    
     @Override
     public void afficherCartePiocheeSpecial(String[] carteDTO) {
         System.out.println("Carte Speciale Piochee : " + carteDTO[0]);
