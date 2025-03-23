@@ -46,9 +46,9 @@ public class Pioche {
 
         for (int i = 0; i < 3; i++) {
             cartes[idx++] = new CarteRejouer("Rejouer", 
-                    "Cycle ton deck ( comme le 2.6 ) ", "rejouer");
+                    "Cycle ton deck ( comme le 2.6 ) ");
             cartes[idx++] = new CarteSoins("Soins", 
-                    "Soigne le joueur, r�g�n�re des points de vie.", "soins");
+                    "Soigne le joueur, r�g�n�re des points de vie.");
         }
         cartes[idx++] = new CarteEchangeMain("�change de main", "�change les mains des deux pirates.");
         cartes[idx++] = new CarteNouvelMain("Random.Shuffle", "Pioche 5 nouvelles cartes.");

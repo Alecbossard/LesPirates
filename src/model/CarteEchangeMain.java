@@ -11,7 +11,5 @@ public class CarteEchangeMain extends Cartes {
         Cartes[] tempMain = pirateActuel.getMain();
         pirateActuel.setMain(adversaire.getMain());
         adversaire.setMain(tempMain);
-
-        System.out.println(pirateActuel.getNom() + " et " + adversaire.getNom() + " ont échangé leurs mains !");
     }
 }

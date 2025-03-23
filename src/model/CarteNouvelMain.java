@@ -10,6 +10,6 @@ public class CarteNouvelMain extends Cartes {
     public void appliquerEffet(Pirate pirateActuel, Pirate adversaire) {
         for (int i = 0; i < pirateActuel.getTailleMain(); i++) {
             pirateActuel.retirerCarteDeLaMain(0);  
-        }      
+        }
     }
 }

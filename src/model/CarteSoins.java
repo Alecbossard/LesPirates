@@ -1,11 +1,9 @@
 package model;
 
 public class CarteSoins extends Cartes {
-	private String effetSpecial;
 	
-	public CarteSoins(String nom, String description, String effetSpecial) {
+	public CarteSoins(String nom, String description) {
         super(nom, description, CarteType.SPECIAL);
-        this.effetSpecial = effetSpecial;
     }
 
 
