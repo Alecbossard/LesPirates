@@ -19,6 +19,9 @@ Le projet comprend plusieurs diagrammes UML pour illustrer la structure et le fo
 3. **Diagramme de classes des cartes** : Détaille les différentes classes de cartes implémentées.
 4. **Diagramme de séquence détaillé des cartes spéciales** : Illustre le fonctionnement spécifique des cartes spéciales `CarteSoins` et `CarteEchangeMain`.
 
+## Instructions d'Exécution
+
+Pour lancer le jeu, assurez-vous d'avoir compilé l'ensemble des fichiers source du projet. Ensuite, exécutez la classe `Main`.
 
 
 
