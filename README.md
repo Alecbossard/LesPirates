@@ -20,7 +20,5 @@ Le projet comprend plusieurs diagrammes UML pour illustrer la structure et le fo
 4. **Diagramme de séquence détaillé des cartes spéciales** : Illustre le fonctionnement spécifique des cartes spéciales `CarteSoins` et `CarteEchangeMain`.
 
 
-## Remerciements
 
-Nous remercions notre enseignant pour son soutien et ses conseils tout au long de ce projet.
 
